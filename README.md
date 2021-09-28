@@ -1,14 +1,8 @@
-<p align="center">
-  <a href="">
-    <img width="140" src="https://avatars.githubusercontent.com/u/73879334?s=200&v=4" />
-  </a>
-</p>
-
 <h1 align="center">DingTalk Release Notify</h1>
 
-![](https://img.shields.io/github/workflow/status/actions-cool/action-js-template/CI?style=flat-square)
+![](https://img.shields.io/github/workflow/status/visiky/release-notify/CI?style=flat-square)
 [![](https://img.shields.io/badge/marketplace-action--js--template-blueviolet?style=flat-square)](https://github.com/marketplace/actions/action-js-template)
-[![](https://img.shields.io/github/v/release/actions-cool/action-js-template?style=flat-square&color=orange)](https://github.com/actions-cool/action-js-template/releases)
+[![](https://img.shields.io/github/v/release/visiky/release-notify?style=flat-square&color=orange)](https://github.com/visiky/release-notify/releases)
 
 
 ## 🎩 Pre-requisites
