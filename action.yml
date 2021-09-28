@@ -1,7 +1,7 @@
 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
-name: 'Action JS Template'
-description: 'A simple javascript template for rapid development of GitHub actions.'
-author: 'xrkffgg'
+name: 'Release notify to Ding Talk'
+description: 'Notify to Ding Talk while release published, using GitHub actions.'
+author: 'visiky'
 
 branding:
   # https://actions-cool.github.io/github-action-branding/
@@ -13,6 +13,19 @@ inputs:
     description: Secret GitHub API token to use for making API requests.
     default: ${{ github.token }}
     required: true
+
+  DING_TALK_TOKEN:
+    description: 'dingtalk web hook token'
+    required: true
+
+  repo_url:
+    description: 'github pull request url'
+
+  content:
+    description: 'message content'
+
+  at_all:
+    description: 'at all users'
 
 #outputs:
 #  result:

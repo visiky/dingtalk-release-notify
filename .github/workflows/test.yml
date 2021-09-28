@@ -1,19 +1,23 @@
-name: CI
+name: DingTalk Release Notify
 
-on: [push, pull_request]
+on:
+  release:
+    types: [published]
 
 jobs:
   setup:
+    runs-on: ubuntu-latest # change to macOS-latest if need to run ci/test
+    steps:
+      - uses: actions/checkout@main
+      - run: yarn install
+      - run: yarn format
+      - run: yarn package
+
+  dingTalk-notify:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@main
-
-      - name: install
-        run: yarn install
-      
-      - name: format-check
-        run: yarn format-check
-
-      - name: package
-        run: yarn package
+      - uses: ./
+        with:
+          DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
+          at_all: false
