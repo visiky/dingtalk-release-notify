@@ -2,8 +2,7 @@ name: DingTalk Release Notify
 
 on:
   release:
-    types: # This configuration does not affect the page_build event above
-      - published
+    types: [published]
 
 jobs:
   setup:
@@ -15,17 +14,14 @@ jobs:
       - name: install
         run: yarn install
       
-      - name: format-check
-        run: yarn format-check
+      - name: format
+        run: yarn format
 
       - name: package
         run: yarn package
 
-  preview:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ding Talk Release Notify
-        uses: lijinke666/ding-talk-pr-notify@main
+      - name: DingTalk Release Nofity
+      - uses: ./
         with:
-          ding_talk_token: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
+          DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
           at_all: false

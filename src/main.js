@@ -34,12 +34,8 @@ async function run() {
       }
     });
 
-
-
-    const prLink = repoUrl ? `${repoUrl}/${pr.number}` : pr.html_url;
     const content = `👏 ${context.repo} Release. \n ${JSON.stringify(context)}`;
     robot.atAll(atAll).text(content);
-
   } catch (error) {
     core.setFailed(error.message);
   }

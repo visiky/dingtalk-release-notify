@@ -1,5 +1,5 @@
 {
-  "name": "action-js-template",
+  "name": "release-notify",
   "version": "0.0.1",
   "private": true,
   "description": "A javascript template for rapid development of GitHub actions.",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/actions-cool/action-js-template",
+    "url": "https://github.com/visiky/release-notify",
     "branch": "main"
   },
-  "author": "xrkffgg",
+  "author": "visiky",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.6",
