@@ -1,19 +1,51 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { Octokit } = require('@octokit/rest');
+const DingRobot = require('ding-robot');
+const { template: parseTemplate } = require('./util');
 
 async function run() {
   try {
-    const ms = core.getInput('milliseconds');
-    core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const myToken = core.getInput('GITHUB_TOKEN');
+    const dingTalkToken = core.getInput('DING_TALK_TOKEN');
+    if (!dingTalkToken) {
+      core.setFailed('Please set DingTalk access token!');
+    }
 
-    core.debug(new Date().toTimeString());
-    await new Promise(resolve => {
-      setTimeout(() => resolve('done!'), 10);
+    const { owner: currentOwner, repo: currentRepo } = github.context.repo;
+
+    const owner = core.getInput('owner') || currentOwner;
+    const repo = core.getInput('repo') || currentRepo;
+    // 默认: ding 所有人
+    const atAll = core.getInput('at_all') || true;
+
+    const octokit = github.getOctokit(myToken);
+
+    const response = await octokit.rest.repos.getLatestRelease({
+      owner,
+      repo,
     });
-    core.debug(new Date().toTimeString());
+    if (response && response.data) {
+      const { tag_name, prerelease, draft, html_url, body } = response.data;
 
-    core.setOutput('time', new Date().toTimeString());
+      if (!prerelease && !draft) {
+        const robot = new DingRobot(dingTalkToken, error => {
+          if (error) {
+            core.setFailed(error.message);
+          }
+        });
+
+        const titleTemplate  = core.getInput('notify_title');
+        const bodyTemplate = core.getInput('notify_body');
+        const footerTemplate = core.getInput('notify_footer');
+        const repo = core.getInput('repo') || currentRepo;
+
+        const title = parseTemplate(titleTemplate, { repo, release_tag: tag_name });
+        const bodyText = parseTemplate(bodyTemplate, { title, body }) || '';
+        const footer = parseTemplate(footerTemplate, { repo, release_tag: tag_name, release_url: html_url }) || '';
+
+        robot.atAll(atAll).markdown(title, `${bodyText}\n\n${footer}`);
+      }
+    }
   } catch (error) {
     core.setFailed(error.message);
   }

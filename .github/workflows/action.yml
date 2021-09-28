@@ -1,0 +1,18 @@
+name: DingTalk Release Notify
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
+          notify_title: '🎉 DingTalk Release Notify 发布 release {release_tag} 🎉'
+          notify_body: '## { title }<hr /> ![](https://gw.alipayobjects.com/zos/antfincdn/pJ5JP3Ntkd/2021-08.png) <hr /> { body } <hr />'
+          notify_footer: '> 前往 [**G2Plot**]({ release_url }) 查看完整信息.'
+          at_all: false

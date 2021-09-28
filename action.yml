@@ -1,7 +1,7 @@
 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
-name: 'Action JS Template'
-description: 'A simple javascript template for rapid development of GitHub actions.'
-author: 'xrkffgg'
+name: 'DingTalk Release Notify'
+description: 'Notify to DingTalk while release published, using GitHub actions.'
+author: 'visiky'
 
 branding:
   # https://actions-cool.github.io/github-action-branding/
@@ -13,6 +13,31 @@ inputs:
     description: Secret GitHub API token to use for making API requests.
     default: ${{ github.token }}
     required: true
+
+  DING_TALK_TOKEN:
+    description: 'dingtalk web hook token'
+    required: true
+
+  owner:
+    description: 'github owner'
+
+  repo:
+    description: 'github repo'
+
+  notify_title:
+    description: 'Template of nofify title message in DingTalk'
+    default: '👏 { repo } { release_tag } Released'
+
+  notify_body:
+    description: 'Template of nofify body message in DingTalk'
+    default: '## { title }    { body }'
+
+  notify_footer:
+    description: 'Template of nofify footer message in DingTalk'
+    default: '> 前往 [**{ repo }** { release_tag }]({ release_url }) 查看完整信息.'
+
+  at_all:
+    description: 'at all users'
 
 #outputs:
 #  result:
