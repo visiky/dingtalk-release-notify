@@ -27,6 +27,7 @@ Create a workflow .yml file in your .github/workflows directory. An example work
 name: DingTalk Release Notify
 
 on:
+  workflow_dispatch: # manual trigger workflow to nofify dingTalk
   release:
     types: [published]
 
@@ -45,6 +46,7 @@ jobs:
 name: DingTalk Release Notify
 
 on:
+  workflow_dispatch: # manual trigger workflow to nofify dingTalk
   release:
     types: [published]
 
