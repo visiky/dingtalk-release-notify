@@ -19,7 +19,8 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/rest": "^18.0.14"
+    "@octokit/rest": "^18.0.14",
+    "ding-robot": "^1.0.0"
   },
   "devDependencies": {
     "@umijs/fabric": "^2.5.6",
