@@ -1,7 +1,7 @@
 <h1 align="center">DingTalk Release Notify</h1>
 
 ![](https://img.shields.io/github/workflow/status/visiky/release-notify/CI?style=flat-square)
-[![](https://img.shields.io/badge/marketplace-action--js--template-blueviolet?style=flat-square)](https://github.com/marketplace/actions/action-js-template)
+[![](https://img.shields.io/badge/marketplace-dingtalk--release--notify-blueviolet?style=flat-square)](https://github.com/marketplace/actions/dingtalk-release-notify)
 [![](https://img.shields.io/github/v/release/visiky/release-notify?style=flat-square&color=orange)](https://github.com/visiky/release-notify/releases)
 
 
@@ -54,6 +54,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: visiky/dingtalk-release-notify@main
         with:
           DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
