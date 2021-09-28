@@ -35,7 +35,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: visiky/release-notify@main
+      - uses: visiky/dingtalk-release-notify@main
         with:
           DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
 ```
@@ -54,8 +54,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./
+      - uses: visiky/dingtalk-release-notify@main
         with:
           DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
           notify_title: '🎉 DingTalk Release Notify 发布 release {release_tag} 🎉' # Template of nofify title message in DingTalk
