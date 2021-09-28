@@ -71,7 +71,7 @@ jobs:
 
 ## Preview
 
-![preview](https://gw.alipayobjects.com/zos/antfincdn/QhxubTKba5/d900537b-b6e8-4206-a454-bea2349d9171.png)
+<img src="https://gw.alipayobjects.com/zos/antfincdn/QhxubTKba5/d900537b-b6e8-4206-a454-bea2349d9171.png)" alt="preview" width="400" />
 
 ## LICENSE
 
