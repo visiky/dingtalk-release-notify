@@ -24,6 +24,7 @@ async function run() {
       owner,
       repo,
     });
+    core.info(response ? response.data : null);
     if (response && response.data) {
       const { tag_name, prerelease, draft, html_url, body } = response.data;
 
