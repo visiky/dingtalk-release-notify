@@ -29,7 +29,7 @@ name: DingTalk Release Notify
 on:
   workflow_dispatch: # manual trigger workflow to nofify dingTalk
   release:
-    types: [published]
+    types: [published, edited]
 
 jobs:
   build:
@@ -48,7 +48,7 @@ name: DingTalk Release Notify
 on:
   workflow_dispatch: # manual trigger workflow to nofify dingTalk
   release:
-    types: [published]
+    types: [published, edited]
 
 jobs:
   build:
