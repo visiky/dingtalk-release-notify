@@ -39,7 +39,8 @@ async function run() {
           parseTemplate(footerTemplate, { repo, release_tag: tag_name, release_url: html_url }) ||
           '';
 
-        dingTalkTokens.split('\n').forEach(dingTalkToken => {
+        const tokens = dingTalkTokens.split('\n');
+        tokens.forEach(dingTalkToken => {
           const robot = new DingRobot(dingTalkToken, error => {
             if (error) {
               core.setFailed(error.message);
@@ -47,6 +48,14 @@ async function run() {
           });
           robot.atAll(atAll).markdown(title, `${bodyText}\n\n${footer}`);
         });
+        if (!tokens.length) {
+          const robot = new DingRobot(dingTalkTokens, error => {
+            if (error) {
+              core.setFailed(error.message);
+            }
+          });
+          robot.atAll(atAll).markdown(title, `${bodyText}\n\n${footer}`);
+        }
       }
     }
   } catch (error) {
