@@ -8716,8 +8716,8 @@ const { template: parseTemplate } = __nccwpck_require__(2858);
 async function run() {
   try {
     const myToken = core.getInput('GITHUB_TOKEN');
-    const dingTalkToken = core.getInput('DING_TALK_TOKEN');
-    if (!dingTalkToken) {
+    const dingTalkTokens = core.getInput('DING_TALK_TOKEN');
+    if (!dingTalkTokens) {
       core.setFailed('Please set DingTalk access token!');
     }
 
@@ -8738,22 +8738,25 @@ async function run() {
       const { tag_name, prerelease, draft, html_url, body } = response.data;
 
       if (!prerelease && !draft) {
-        const robot = new DingRobot(dingTalkToken, error => {
-          if (error) {
-            core.setFailed(error.message);
-          }
-        });
-
-        const titleTemplate  = core.getInput('notify_title');
+        const titleTemplate = core.getInput('notify_title');
         const bodyTemplate = core.getInput('notify_body');
         const footerTemplate = core.getInput('notify_footer');
         const repo = core.getInput('repo') || currentRepo;
 
         const title = parseTemplate(titleTemplate, { repo, release_tag: tag_name });
         const bodyText = parseTemplate(bodyTemplate, { title, body }) || '';
-        const footer = parseTemplate(footerTemplate, { repo, release_tag: tag_name, release_url: html_url }) || '';
+        const footer =
+          parseTemplate(footerTemplate, { repo, release_tag: tag_name, release_url: html_url }) ||
+          '';
 
-        robot.atAll(atAll).markdown(title, `${bodyText}\n\n${footer}`);
+        dingTalkTokens.split('\n').forEach(dingTalkToken => {
+          const robot = new DingRobot(dingTalkToken, error => {
+            if (error) {
+              core.setFailed(error.message);
+            }
+          });
+          robot.atAll(atAll).markdown(title, `${bodyText}\n\n${footer}`);
+        });
       }
     }
   } catch (error) {
