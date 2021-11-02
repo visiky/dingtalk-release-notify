@@ -4,8 +4,7 @@ const DingRobot = require('ding-robot');
 const { template: parseTemplate } = require('./util');
 
 function sendReleaseNotice(params) {
-  const { responseData, currentRepo, dingTalkTokens, atAll, enablePrerelease } =
-    params;
+  const { responseData, currentRepo, dingTalkTokens, atAll, enablePrerelease } = params;
   if (!responseData) {
     return;
   }
@@ -37,8 +36,8 @@ function sendReleaseNotice(params) {
     }) || '';
 
   const tokens = dingTalkTokens.split('\n');
-  tokens.forEach((dingTalkToken) => {
-    const robot = new DingRobot(dingTalkToken, (error) => {
+  tokens.forEach(dingTalkToken => {
+    const robot = new DingRobot(dingTalkToken, error => {
       if (error) {
         core.setFailed(error.message);
       }
@@ -46,7 +45,7 @@ function sendReleaseNotice(params) {
     robot.atAll(atAll).markdown(title, `${bodyText}\n\n${footer}`);
   });
   if (!tokens.length) {
-    const robot = new DingRobot(dingTalkTokens, (error) => {
+    const robot = new DingRobot(dingTalkTokens, error => {
       if (error) {
         core.setFailed(error.message);
       }
@@ -79,17 +78,13 @@ async function run() {
     });
 
     if (enablePrerelease) {
-      const releasesResponse = await octokit.request(
-        'GET /repos/{owner}/{repo}/releases',
-        {
-          owner,
-          repo,
-        },
-      );
+      const releasesResponse = await octokit.request('GET /repos/{owner}/{repo}/releases', {
+        owner,
+        repo,
+      });
       // 接口返回的 release 是有顺序的, 在前面的就是最新的, 取第一个即可, 如果没有pre release, 就用正式的
       const latestPreReleaseData =
-        (releasesResponse.data || []).find((item) => item.prerelease) ||
-        response.data;
+        (releasesResponse.data || []).find(item => item.prerelease) || response.data;
 
       sendReleaseNotice({
         responseData: latestPreReleaseData,
