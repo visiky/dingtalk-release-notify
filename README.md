@@ -82,6 +82,8 @@ jobs:
         with:
           DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
           enable_prerelease: true
+          
+```
 
 ## Preview
 
