@@ -38,6 +38,9 @@ inputs:
 
   at_all:
     description: 'at all users'
+    
+  enable_prerelease:
+    description: 'support prerelease, if prerelease list is empty, use last release'
 
 #outputs:
 #  result:
