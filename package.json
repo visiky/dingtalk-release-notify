@@ -1,17 +1,18 @@
 {
-  "name": "release-notify",
-  "version": "0.1.2",
+  "name": "dingtalk-release-notify",
+  "version": "0.1.3",
   "private": true,
   "description": "A javascript template for rapid development of GitHub actions.",
   "main": "src/main.js",
   "scripts": {
     "package": "ncc build",
     "format": "prettier --write src/*.js",
-    "format-check": "prettier --check src/*.js"
+    "format-check": "prettier --check src/*.js",
+    "release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/visiky/release-notify",
+    "url": "https://github.com/visiky/dingtalk-release-notify",
     "branch": "main"
   },
   "author": "visiky",
@@ -20,7 +21,10 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "@octokit/rest": "^18.0.14",
-    "ding-robot": "^1.0.0"
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "ding-robot": "^1.0.0",
+    "semantic-release": "^18.0.0"
   },
   "devDependencies": {
     "@umijs/fabric": "^2.5.6",

@@ -1,8 +1,8 @@
 <h1 align="center">DingTalk Release Notify</h1>
 
-![](https://img.shields.io/github/workflow/status/visiky/release-notify/CI?style=flat-square)
+![](https://img.shields.io/github/workflow/status/visiky/dingtalk-release-notify/CI?style=flat-square)
 [![](https://img.shields.io/badge/marketplace-dingtalk--release--notify-blueviolet?style=flat-square)](https://github.com/marketplace/actions/dingtalk-release-notify)
-[![](https://img.shields.io/github/v/release/visiky/release-notify?style=flat-square&color=orange)](https://github.com/visiky/release-notify/releases)
+[![](https://img.shields.io/github/v/release/visiky/dingtalk-release-notify?style=flat-square&color=orange)](https://github.com/visiky/dingtalk-release-notify/releases)
 
 
 ## 🎩 Pre-requisites
