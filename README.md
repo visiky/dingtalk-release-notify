@@ -18,6 +18,7 @@ Create a workflow .yml file in your .github/workflows directory. An example work
 - `notify_body`: Text describing the body of the release. Default: '## { title }    { body }'
 - `notify_footer`: Footer text describing of the release. Default: '> 前往 [**{ repo }** { release_tag }]({ release_url }) 查看完整信息.'
 - `at_all`: @ all in DingTalk.
+- `enable_prerelease`: use prerelease notes content
 
 ## 🚀 Example workflow (how to use?)
 
@@ -62,6 +63,26 @@ jobs:
           notify_footer: '> 前往 [**G2Plot**]({ release_url }) 查看完整信息.' # Template of nofify footer message in DingTalk
           at_all: false # whether to ding everybody
 
+```
+
+**Prerelease usages:**
+
+```yml
+name: DingTalk Release Notify
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: visiky/dingtalk-release-notify@main
+        with:
+          DING_TALK_TOKEN: ${{ secrets.DING_TALK_ACCESS_TOKEN}}
+          enable_prerelease: true
+          
 ```
 
 ## Preview
