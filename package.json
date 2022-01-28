@@ -1,6 +1,6 @@
 {
-  "name": "release-notify",
-  "version": "0.1.1",
+  "name": "dingtalk-release-notify",
+  "version": "0.1.3",
   "private": true,
   "description": "A javascript template for rapid development of GitHub actions.",
   "main": "src/main.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/visiky/release-notify",
+    "url": "https://github.com/visiky/dingtalk-release-notify",
     "branch": "main"
   },
   "author": "visiky",
