@@ -7,8 +7,7 @@
   "scripts": {
     "package": "ncc build",
     "format": "prettier --write src/*.js",
-    "format-check": "prettier --check src/*.js",
-    "release": "semantic-release"
+    "format-check": "prettier --check src/*.js"
   },
   "repository": {
     "type": "git",
@@ -21,10 +20,7 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "@octokit/rest": "^18.0.14",
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "ding-robot": "^1.0.0",
-    "semantic-release": "^18.0.0"
+    "ding-robot": "^1.0.0"
   },
   "devDependencies": {
     "@umijs/fabric": "^2.5.6",
