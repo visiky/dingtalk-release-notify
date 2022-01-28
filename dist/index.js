@@ -8500,13 +8500,11 @@ function template(source, data, repository) {
   function reduceGithubUrl(str) {
     // 把 github 链接，进行缩写. 如: https://github.com/antvis/G2/pull/3794 -> [#3794](https://github.com/antvis/G2/pull/3794)
     if (repository) {
-      const urls = str.match(
-        new RegExp(`https://github.com/${repository}/(\\w*)/([\\d]*)`, 'g'),
-      );
+      const urls = str.match(new RegExp(`https://github.com/${repository}/(\\w*)/([\\d\.]*)`, 'g'));
       if (urls) {
         urls.forEach(url => {
-          const id = url.match(/.*\/(\d*)/)[1];
-          str = str.replace(new RegExp(url, 'g'), `[#${id}](${url})`);
+          const id = url.match(/.*\/([\d.]*)/)[1];
+          str = str.replace(new RegExp(url, 'g'), id,match(/[^\d]/) ? `[${id}](${url})` : `[#${id}](${url})`);
         });
       }
     }
