@@ -4,7 +4,8 @@ const DingRobot = require('ding-robot');
 const { template: parseTemplate } = require('./util');
 
 function sendReleaseNotice(params) {
-  const { responseData, currentRepo, dingTalkTokens, atAll, enablePrerelease } = params;
+  const { responseData, currentRepo, currentOwner, dingTalkTokens, atAll, enablePrerelease } =
+    params;
   if (!responseData) {
     return;
   }
@@ -22,18 +23,21 @@ function sendReleaseNotice(params) {
   const bodyTemplate = core.getInput('notify_body');
   const footerTemplate = core.getInput('notify_footer');
   const repo = core.getInput('repo') || currentRepo;
+  const owner = core.getInput('owner') || currentOwner;
 
   const title = parseTemplate(titleTemplate, {
     repo,
     release_tag: tag_name,
   });
-  const bodyText = parseTemplate(bodyTemplate, { title, body }) || '';
+  const bodyText = parseTemplate(bodyTemplate, { title, body }, `${owner}/${repo}`) || '';
   const footer =
-    parseTemplate(footerTemplate, {
-      repo,
-      release_tag: tag_name,
-      release_url: html_url,
-    }) || '';
+    parseTemplate(
+      footerTemplate,
+      {
+        repo,
+        release_tag: tag_name,
+        release_url: html_url,
+      }) || '';
 
   const tokens = dingTalkTokens.split('\n');
   tokens.forEach(dingTalkToken => {
@@ -88,6 +92,7 @@ async function run() {
 
       sendReleaseNotice({
         responseData: latestPreReleaseData,
+        currentOwner,
         currentRepo,
         dingTalkTokens,
         atAll,
@@ -98,6 +103,7 @@ async function run() {
 
     sendReleaseNotice({
       responseData: response.data,
+      currentOwner,
       currentRepo,
       dingTalkTokens,
       atAll,
