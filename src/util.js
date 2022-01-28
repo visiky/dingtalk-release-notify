@@ -15,7 +15,7 @@ export function template(source, data, repository) {
       if (urls) {
         urls.forEach(url => {
           const id = url.match(/.*\/(\d*)/)[1];
-          str = str.replaceAll(url, `[#${id}](${url})`);
+          str = str.replace(new RegExp(url, 'g'), `[#${id}](${url})`);
         });
       }
     }
