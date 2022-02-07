@@ -7,7 +7,8 @@
   "scripts": {
     "package": "ncc build",
     "format": "prettier --write src/*.js",
-    "format-check": "prettier --check src/*.js"
+    "format-check": "prettier --check src/*.js",
+    "precommit": "npm run package"
   },
   "repository": {
     "type": "git",

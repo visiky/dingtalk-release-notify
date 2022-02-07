@@ -1,3 +1,6 @@
+const PULL_PATTERN = repo => `https://github.com/${repo}/pull/([\\d]+)`;
+const COMPARE_PATTERN = repo => `https://github.com/${repo}/(compare|commits)/([\\d\.]+)`;
+
 /**
  * 简单的模板引擎，使用方式如下（空格自动忽略）：
  * template('hello, {name}', { name: 'AntV' }); // hello, AntV
@@ -11,11 +14,14 @@ export function template(source, data, repository) {
       const urls = str.match(new RegExp(`https://github.com/${repository}/(\\w*)/([\\d\.]*)`, 'g'));
       if (urls) {
         urls.forEach(url => {
-          const id = url.match(/.*\/([\d.]*)/)[1];
-          // 把 github 链接，进行缩写. 如: https://github.com/antvis/G2/compare/0.1.2...v0.1.5 -> [0.1.2...v0.1.5](https://github.com/antvis/G2/compare/0.1.2...v0.1.5)
-          // str = str.replace(new RegExp(url, 'g'), id.match(/[^\d]/) ? `[${id}](${url})` : `[#${id}](${url})`);
-          if (id.match(/[^\d]/)) {
-            str = str.replace(new RegExp(url, 'g'), `[${id}](${url})`);
+          let parsed = url.match(PULL_PATTERN(repository));
+          let hash = parsed && parsed[1];
+          if (!hash) {
+            parsed = utl.match(COMPARE_PATTERN(repository));
+            hash = parsed && parsed[2];
+          }
+          if (hash) {
+            str = str.replace(new RegExp(url, 'g'), `[#${hash}](${url})`);
           }
         });
       }
