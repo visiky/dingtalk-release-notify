@@ -8534,12 +8534,7 @@ function template(source, data, repository) {
     result = result.replace(new RegExp(`{\\s*${k}\\s*}`, 'g'), v);
   });
 
-  result = result.split('\n').map(line => {
-    if (line.trim().startsWith('##')) {
-      return `\n${line}`;
-    }
-    return line;
-  }).join('\n\n');
+  result = result.split('\n').join('\n\n');
 
   return reduceGithubUrl(result);
 }
