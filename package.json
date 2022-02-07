@@ -7,8 +7,7 @@
   "scripts": {
     "package": "ncc build",
     "format": "prettier --write src/*.js",
-    "format-check": "prettier --check src/*.js",
-    "precommit": "npm run package"
+    "format-check": "prettier --check src/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,7 @@
   "devDependencies": {
     "@umijs/fabric": "^2.5.6",
     "@vercel/ncc": "^0.29.0",
+    "husky": "^7.0.4",
     "prettier": "^2.2.1"
   }
 }
