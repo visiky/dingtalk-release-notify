@@ -76,11 +76,6 @@ async function run() {
 
     const octokit = github.getOctokit(myToken);
 
-    const response = await octokit.rest.repos.getLatestRelease({
-      owner,
-      repo,
-    });
-
     if (enablePrerelease) {
       const releasesResponse = await octokit.request('GET /repos/{owner}/{repo}/releases', {
         owner,
@@ -88,7 +83,7 @@ async function run() {
       });
       // 接口返回的 release 是有顺序的, 在前面的就是最新的, 取第一个即可, 如果没有pre release, 就用正式的
       const latestPreReleaseData =
-        (releasesResponse.data || []).find(item => item.prerelease) || response.data;
+        (releasesResponse.data || []).find(item => item.prerelease) || releasesResponse.data[0];
 
       sendReleaseNotice({
         responseData: latestPreReleaseData,
@@ -96,10 +91,15 @@ async function run() {
         currentRepo,
         dingTalkTokens,
         atAll,
-        enablePrerelease: true,
+        enablePrerelease,
       });
       return;
     }
+
+    const response = await octokit.rest.repos.getLatestRelease({
+      owner,
+      repo,
+    });
 
     sendReleaseNotice({
       responseData: response.data,
